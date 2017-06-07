@@ -31,6 +31,8 @@ class Update extends BaseType implements TypeInterface
     static protected $map = [
         'update_id' => true,
         'message' => Message::class,
+        'channel_post' => Message::class,
+        'edited_channel_post' => Message::class,
         'inline_query' => InlineQuery::class,
         'chosen_inline_result' => ChosenInlineResult::class,
         'callback_query' => CallbackQuery::class,
@@ -73,6 +75,20 @@ class Update extends BaseType implements TypeInterface
      * @var \TelegramBot\Api\Types\CallbackQuery
      */
     protected $callbackQuery;
+
+    /**
+     * Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+     *
+     * @var Message
+     */
+    protected $channelPost;
+
+    /**
+     * Optional. New version of a channel post that is known to the bot and was edited
+     *
+     * @var Message
+     */
+    protected $editedChannelPost;
 
     /**
      * @return int
@@ -152,5 +168,45 @@ class Update extends BaseType implements TypeInterface
     public function setCallbackQuery($callbackQuery)
     {
         $this->callbackQuery = $callbackQuery;
+    }
+
+    /**
+     * @return Message
+     */
+    public function getChannelPost()
+    {
+        return $this->channelPost;
+    }
+
+    /**
+     * @param Message $channelPost
+     */
+    public function setChannelPost(Message $channelPost)
+    {
+        $this->channelPost = $channelPost;
+    }
+
+    /**
+     * @return Message
+     */
+    public function getEditedChannelPost()
+    {
+        return $this->editedChannelPost;
+    }
+
+    /**
+     * @param Message $editedChannelPost
+     */
+    public function setEditedChannelPost(Message $editedChannelPost)
+    {
+        $this->editedChannelPost = $editedChannelPost;
+    }
+
+    public function getLatestChannelPost()
+    {
+        if ($this->editedChannelPost) {
+            return $this->editedChannelPost;
+        }
+        return $this->channelPost;
     }
 }
