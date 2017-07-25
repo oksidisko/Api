@@ -978,7 +978,7 @@ class BotApi
         $messageId,
         $replyMarkup = null
     ) {
-        return Message::fromResponse($this->call('editMessageText', [
+        return Message::fromResponse($this->call('editMessageReplyMarkup', [
             'chat_id' => $chatId,
             'message_id' => $messageId,
             'reply_markup' => is_null($replyMarkup) ? $replyMarkup : $replyMarkup->toJson(),
