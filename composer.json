@@ -40,7 +40,7 @@
     },
     "extra": {
         "branch-alias": {
-            "stable-master": "3.0.0"
+            "master": "3.0.0"
         }
     }
 }
